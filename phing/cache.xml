@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="stingy-hamster" basedir="." default="null">
+
+    <target name="cache_clear">
+        <echo>Clearing app cache</echo>
+        <exec command="bin/console cache:clear --env=dev" passthru="true" checkreturn="true" />
+        <exec command="bin/console cache:clear --env=test" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="cache_clear_test">
+        <echo>Clearing app cache</echo>
+        <exec command="bin/console cache:clear --env=test" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="cache_warmup">
+        <echo>App cache warmup</echo>
+        <exec command="bin/console cache:warmup --env=dev" passthru="true" checkreturn="true" />
+        <exec command="bin/console cache:warmup --env=test" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="cache_warmup_test">
+        <echo>App cache warmup</echo>
+        <exec command="bin/console cache:warmup --env=test" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="cache_clean"
+            depends="cache_clear, cache_warmup">
+        <echo>App cache cleansed</echo>
+    </target>
+
+    <target name="cache_clean_test"
+            depends="cache_clear_test, cache_warmup_test">
+        <echo>App cache cleansed</echo>
+    </target>
+
+</project>

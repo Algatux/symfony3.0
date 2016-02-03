@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="stingy-hamster" basedir="." default="null">
+
+    <target name="db_reset">
+        <echo>DB reset</echo>
+        <exec command="bin/console doctrine:schema:drop --force" passthru="true" checkreturn="true" />
+        <exec command="bin/console doctrine:schema:update --force" passthru="true" checkreturn="true" />
+    </target>
+
+    <!--<target name="db_migrate">-->
+        <!--<echo>DB migration</echo>-->
+        <!--<exec executable="php" passthru="true" checkreturn="true">-->
+            <!--<arg value="artisan" />-->
+            <!--<arg value="migrate" />-->
+        <!--</exec>-->
+    <!--</target>-->
+
+    <target name="db_seed">
+        <echo>DB Seeding</echo>
+        <exec command="bin/console doctrine:fixtures:load -n" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="db_seed_purge">
+        <echo>DB Seeding</echo>
+        <exec command="bin/console doctrine:fixtures:load -n --purge-with-truncate" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="db_setup"
+            depends="db_reset, db_seed" >
+        <echo>Your DB is ready!</echo>
+    </target>
+
+</project>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="stingy-hamster" basedir="." default="null">
+
+    <target name="phpunit_unit">
+        <echo>Running unit tests</echo>
+        <exec executable="bin/phpunit" passthru="true" checkreturn="true">
+            <arg value="--testsuite=UnitTests" />
+        </exec>
+    </target>
+
+    <target name="phpunit_functional">
+        <echo>Running functional tests</echo>
+        <exec executable="bin/phpunit" passthru="true" checkreturn="true">
+            <arg value="--testsuite=Functional Tests" />
+        </exec>
+    </target>
+
+    <target name="phpunit_coverage">
+        <echo>Running unit tests</echo>
+        <exec executable="bin/phpunit" passthru="true" checkreturn="true">
+            <arg value="--coverage-clover=./build/coverage/coverage.clover" />
+        </exec>
+    </target>
+
+</project>

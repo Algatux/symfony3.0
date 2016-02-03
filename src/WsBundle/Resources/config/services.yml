@@ -1,0 +1,21 @@
+services:
+
+  ## SECURITY
+  ws.security.api_key_user_provider:
+    class: WsBundle\Security\ApiKeyUserProvider
+    arguments:
+      - "@app.user.repository"
+      - "@ws.api_key.repository"
+
+  ws.security.api_key_validator:
+    class: WsBundle\Security\ApiKeyValidator
+
+  ws.security.api_key_authenticator:
+    class: WsBundle\Security\ApiKeyAuthenticator
+    public: false
+    arguments:
+      - "@ws.security.api_key_validator"
+    tags:
+      - { name: monolog.logger }
+
+  ## REQUEST PARSING

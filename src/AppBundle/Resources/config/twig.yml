@@ -1,0 +1,7 @@
+services:
+
+  app.twig_extension:
+    class: AppBundle\Twig\NavigationExtension
+    public: false
+    tags:
+      - { name: twig.extension }

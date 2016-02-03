@@ -1,0 +1,9 @@
+parameters:
+
+services:
+
+    app.user.repository:
+        class: AppBundle\Repository\UserRepository
+        factory: ["@doctrine", getRepository]
+        arguments:
+            - AppBundle:User

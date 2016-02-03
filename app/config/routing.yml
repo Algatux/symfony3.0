@@ -1,0 +1,16 @@
+user:
+    resource: "@UserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+ws:
+    resource: "@WsBundle/Controller/"
+    type:     annotation
+    prefix:   /ws
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

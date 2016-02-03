@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="stingy-hamster" basedir="." default="setup_and_test">
+
+    <import file="phing/vendor.xml"/>
+    <import file="phing/db.xml"/>
+    <import file="phing/cache.xml"/>
+    <import file="phing/test.xml"/>
+
+    <!-- Setup dev enviroment -->
+    <target name="setup"
+            depends="composer, cache_clean, db_setup">
+        <echo>Gerold is Ready!</echo>
+    </target>
+
+    <!-- Run tests -->
+    <target name="phpunit"
+            depends="phpunit_unit, phpunit_functional">
+        <echo>All tests green!</echo>
+    </target>
+
+    <!-- Setup dev enviroment and runs tests -->
+    <target name="setup_and_test"
+            depends="cache_clean_test, db_setup, phpunit">
+        <echo>All goes OK!</echo>
+    </target>
+
+    <target name="setup_and_test_travis"
+            depends="cache_clean_test, db_setup, phpunit_coverage">
+        <echo>All goes OK!</echo>
+    </target>
+
+</project>

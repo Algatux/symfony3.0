@@ -29,12 +29,6 @@ class User extends BaseUser
     protected $apiKeys;
 
     /**
-     * @var ArrayCollection|Wallet[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Wallet", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    protected $wallets;
-
-    /**
      * @var UserRegistry
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\UserRegistry", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      */
@@ -47,7 +41,6 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->apiKeys = new ArrayCollection();
-        $this->wallets = new ArrayCollection();
     }
 
     /**
@@ -89,32 +82,6 @@ class User extends BaseUser
     {
         if (! $this->apiKeys->contains($apiKey)) {
             $this->apiKeys->add($apiKey);
-        }
-    }
-
-    /**
-     * @return Wallet[]|ArrayCollection
-     */
-    public function getWallets()
-    {
-        return $this->wallets;
-    }
-
-    /**
-     * @param Wallet[]|ArrayCollection $wallets
-     */
-    public function setWallets($wallets)
-    {
-        $this->wallets = $wallets;
-    }
-
-    /**
-     * @param Wallet $wallet
-     */
-    public function addWallet(Wallet $wallet)
-    {
-        if (! $this->wallets->contains($wallet)) {
-            $this->wallets->add($wallet);
         }
     }
 

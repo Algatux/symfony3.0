@@ -3,10 +3,10 @@ user:
     type:     annotation
     prefix:   /
 
-ws:
-    resource: "@WsBundle/Controller/"
-    type:     annotation
-    prefix:   /ws
+#ws:
+#    resource: "@WsBundle/Controller/"
+#    type:     annotation
+#    prefix:   /ws
 
 app:
     resource: "@AppBundle/Controller/"

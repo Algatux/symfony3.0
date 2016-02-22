@@ -9,6 +9,7 @@ filter:
         - 'var/*'
         - 'phing/*'
         - 'web/*'
+        - 'node_modules/*'
 
 checks:
     php: true

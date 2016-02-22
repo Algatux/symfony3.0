@@ -12,7 +12,7 @@ class ApiKeyValidator
     const API_KEY_LENGTH = 36;
 
     const API_KEY_PATTERN = "/^([a-z0-9]{8})-([a-z0-9]{4})-([a-z0-9]{4})-([a-z0-9]{4})-([a-z0-9]{12})$/";
-    
+
     /**
      * @param string $apiKey
      * @return bool

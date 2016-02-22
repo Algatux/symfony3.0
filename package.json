@@ -1,0 +1,25 @@
+{
+  "name": "symfony3.0",
+  "version": "1.0.0",
+  "description": "Symfony 3.0.2  Base App ==============",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Algatux/symfony3.0.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Algatux/symfony3.0/issues"
+  },
+  "homepage": "https://github.com/Algatux/symfony3.0#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "laravel-elixir": "^5.0.0"
+  }
+}

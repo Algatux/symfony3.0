@@ -17,3 +17,5 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+/web/assets/
+/node_modules/

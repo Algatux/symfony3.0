@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use WsBundle\Security\ApiKeyAuthenticator;
 use WsBundle\Security\ApiKeyUserProvider;
+use WsBundle\Security\ApiKeyValidator;
 
 class ApiKeyAuthenticatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,22 +21,22 @@ class ApiKeyAuthenticatorTest extends \PHPUnit_Framework_TestCase
     {
         $request = new Request();
         $request->headers = new HeaderBag([
-            'apikey' => 'api_key_test'
+            'apikey' => '32db4703-558f-4363-a409-733f80b95e8c'
         ]);
 
-        $authenticator = new ApiKeyAuthenticator();
+        $authenticator = new ApiKeyAuthenticator(new ApiKeyValidator());
 
         $preAuthToken = $authenticator
             ->createToken($request, 'test_provider_key');
 
         $this->assertEquals('anon.', $preAuthToken->getUser());
-        $this->assertEquals('api_key_test', $preAuthToken->getCredentials());
+        $this->assertEquals('32db4703-558f-4363-a409-733f80b95e8c', $preAuthToken->getCredentials());
         $this->assertEquals('test_provider_key', $preAuthToken->getProviderKey());
     }
 
     public function test_authenticateToken_will_decorate_the_pre_authenticated_token()
     {
-        $preAuthToken = new PreAuthenticatedToken('anon.', 'api_key_test', 'test_provider_key');
+        $preAuthToken = new PreAuthenticatedToken('anon.', '32db4703-558f-4363-a409-733f80b95e8c', 'test_provider_key');
 
         $user = new User();
         $user->setUsername('user_username');
@@ -44,7 +45,7 @@ class ApiKeyAuthenticatorTest extends \PHPUnit_Framework_TestCase
 
         $userProvider = $this->getUserProvider($preAuthToken, $user);
 
-        $authenticator = new ApiKeyAuthenticator();
+        $authenticator = new ApiKeyAuthenticator(new ApiKeyValidator());
         $authenticator->authenticateToken($preAuthToken, $userProvider->reveal(), 'test_provider_key');
     }
 
@@ -59,7 +60,7 @@ class ApiKeyAuthenticatorTest extends \PHPUnit_Framework_TestCase
 
         $userProvider = $this->getUserProvider($preAuthToken, $user);
 
-        $authenticator = new ApiKeyAuthenticator();
+        $authenticator = new ApiKeyAuthenticator(new ApiKeyValidator());
         $this->setExpectedException(CustomUserMessageAuthenticationException::class);
         $authenticator->authenticateToken($preAuthToken, $userProvider->reveal(), 'test_provider_key');
     }
@@ -79,7 +80,7 @@ class ApiKeyAuthenticatorTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalledTimes(1)
             ->willReturn(null);
 
-        $authenticator = new ApiKeyAuthenticator();
+        $authenticator = new ApiKeyAuthenticator(new ApiKeyValidator());
         $this->setExpectedException(CustomUserMessageAuthenticationException::class);
         $authenticator->authenticateToken($preAuthToken, $userProvider->reveal(), 'test_provider_key');
     }
@@ -96,7 +97,7 @@ class ApiKeyAuthenticatorTest extends \PHPUnit_Framework_TestCase
 
         $userProvider = $this->getUserProvider($preAuthToken, $user);
 
-        $authenticator = new ApiKeyAuthenticator();
+        $authenticator = new ApiKeyAuthenticator(new ApiKeyValidator());
         $this->setExpectedException(CustomUserMessageAuthenticationException::class);
         $authenticator->authenticateToken($preAuthToken, $userProvider->reveal(), 'test_provider_key');
     }

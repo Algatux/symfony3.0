@@ -13,6 +13,6 @@ class DefaultControllerTest extends TestCase
         $crawler = $client->request('GET', '/');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Welcome to stingy-hamster', $crawler->filter('div.jumbotron')->text());
+        $this->assertContains('Welcome to Symfony 3.0', $crawler->filter('div.jumbotron')->text());
     }
 }

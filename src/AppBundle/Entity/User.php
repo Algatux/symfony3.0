@@ -23,12 +23,6 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @var ArrayCollection|ApiKey[]
-     * @ORM\OneToMany(targetEntity="WsBundle\Entity\ApiKey", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    protected $apiKeys;
-
-    /**
      * @var UserRegistry
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\UserRegistry", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      */
@@ -40,7 +34,6 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->apiKeys = new ArrayCollection();
     }
 
     /**
@@ -57,32 +50,6 @@ class User extends BaseUser
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return ArrayCollection|ApiKey[]
-     */
-    public function getApiKeys()
-    {
-        return $this->apiKeys;
-    }
-
-    /**
-     * @param ArrayCollection|ApiKey[] $apiKeys
-     */
-    public function setApiKeys($apiKeys)
-    {
-        $this->apiKeys = $apiKeys;
-    }
-
-    /**
-     * @param ApiKey $apiKey
-     */
-    public function addApiKey(ApiKey $apiKey)
-    {
-        if (! $this->apiKeys->contains($apiKey)) {
-            $this->apiKeys->add($apiKey);
-        }
     }
 
     /**

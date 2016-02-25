@@ -14,8 +14,8 @@ security:
         fos_userbundle:
             id: fos_user.user_provider.username
 
-        api_key_user_provider:
-            id: ws.security.api_key_user_provider
+#        api_key_user_provider:
+#            id: ws.security.api_key_user_provider
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -23,12 +23,12 @@ security:
           pattern: ^/(_(profiler|wdt)|css|images|js)/
           security: false
 
-        ws:
-          pattern: ^/ws
-          stateless: true
-          simple_preauth:
-            authenticator: ws.security.api_key_authenticator
-          provider: api_key_user_provider
+#        ws:
+#          pattern: ^/ws
+#          stateless: true
+#          simple_preauth:
+#            authenticator: ws.security.api_key_authenticator
+#          provider: api_key_user_provider
 
         default:
           pattern: ^/

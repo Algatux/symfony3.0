@@ -18,4 +18,34 @@ services:
     tags:
       - { name: monolog.logger }
 
+  ## SERVICES
+  ws.security.lcobucci.jwt.builder:
+    class: Lcobucci\JWT\Builder
+
+  ws.security.lcobucci.jwt.validation_data:
+    class: Lcobucci\JWT\ValidationData
+
+  ws.security.lcobucci.jwt.parser:
+    class: Lcobucci\JWT\Parser
+
+  ws.security.lcobucci.jwt.hmac_signer:
+    class: Lcobucci\JWT\Signer\Hmac\Sha256
+
+  ws.security_jwt.generator:
+    class: WsBundle\Security\Jwt\TokenGenerator
+    arguments:
+      - "@ws.security.lcobucci.jwt.builder"
+      - "@ws.security.lcobucci.jwt.hmac_signer"
+      - "%secret%"
+      - "%jwt_validation%"
+
+  ws.security_jwt.token_validator:
+    class: WsBundle\Security\Jwt\TokenValidator
+    arguments:
+      - "@ws.security.lcobucci.jwt.parser"
+      - "@ws.security.lcobucci.jwt.validation_data"
+      - "@ws.security.lcobucci.jwt.hmac_signer"
+      - "%secret%"
+      - "%jwt_validation%"
+
   ## REQUEST PARSING

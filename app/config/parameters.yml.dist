@@ -18,3 +18,10 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    jwt_validation:
+        issuer: ~
+        audience: ~
+        appid: ~
+        expire: 300
+        notbefore: 1

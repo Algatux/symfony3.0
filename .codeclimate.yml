@@ -1,9 +1,0 @@
-languages:
-  PHP: true
-exclude_paths:
-  - "tests/*"
-  - "phing/*"
-  - "var/*"
-  - "web/*"
-  - "vendor/*"
-  - "src/AppBundle/DataFixtures/*"

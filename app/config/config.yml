@@ -74,12 +74,3 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-
-#influx_db:
-#  host: "localhost"
-#  writer_client:
-#    port: "4444"
-#    type: "udp"
-#  reader_client:
-#    port: "8888"
-#    type: "http"

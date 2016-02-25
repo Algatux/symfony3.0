@@ -3,10 +3,9 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class DefaultController extends Controller
+class DefaultController extends BaseController
 {
     /**
      * @Route("/", name="default_homepage")
@@ -15,8 +14,23 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+//        $user = $this->getEntityManager()->getRepository(User::class)->find(1);
+//        $token = $this->get('ws.security_jwt.generator')->createToken($user);
+//        $tokenString = $token->__toString();
+//
+//        $tokenRegenerated = $this->get('ws.security_jwt.token_validator')->getTokenFromRaw($tokenString);
+//
+//        $result = $this->get('ws.security_jwt.token_validator')->validateToken($tokenRegenerated);
+//
+//        dump(
+//            $token,
+//            $tokenString,
+//            $tokenRegenerated,
+//            $result
+//            );
+
         // replace this example code with whatever you need
-        return $this->render('AppBundle:default:index.html.twig');
+        return $this->render('AppBundle:default:index.html.twig',[]);
     }
 
     /**

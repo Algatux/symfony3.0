@@ -1,35 +1,19 @@
 services:
 
   ## SECURITY
-  ws.security.api_key_user_provider:
-    class: WsBundle\Security\ApiKeyUserProvider
+  ws.security.api_user_provider:
+    class: WsBundle\Security\ApiUserProvider
     arguments:
       - "@app.user.repository"
-      - "@ws.api_key.repository"
 
-  ws.security.api_key_validator:
-    class: WsBundle\Security\ApiKeyValidator
-
-  ws.security.api_key_authenticator:
-    class: WsBundle\Security\ApiKeyAuthenticator
+  ws.security.api_authenticator:
+    class: WsBundle\Security\ApiAuthenticator
     public: false
     arguments:
-      - "@ws.security.api_key_validator"
+      - "@ws.security_jwt.token_validator"
+      - "@ws.security_authenticator.token_request_extractor"
     tags:
       - { name: monolog.logger }
-
-  ## SERVICES
-  ws.security.lcobucci.jwt.builder:
-    class: Lcobucci\JWT\Builder
-
-  ws.security.lcobucci.jwt.validation_data:
-    class: Lcobucci\JWT\ValidationData
-
-  ws.security.lcobucci.jwt.parser:
-    class: Lcobucci\JWT\Parser
-
-  ws.security.lcobucci.jwt.hmac_signer:
-    class: Lcobucci\JWT\Signer\Hmac\Sha256
 
   ws.security_jwt.generator:
     class: WsBundle\Security\Jwt\TokenGenerator
@@ -42,10 +26,26 @@ services:
   ws.security_jwt.token_validator:
     class: WsBundle\Security\Jwt\TokenValidator
     arguments:
-      - "@ws.security.lcobucci.jwt.parser"
       - "@ws.security.lcobucci.jwt.validation_data"
       - "@ws.security.lcobucci.jwt.hmac_signer"
       - "%secret%"
       - "%jwt_validation%"
 
   ## REQUEST PARSING
+  ws.security_authenticator.token_request_extractor:
+    class: WsBundle\Security\Authenticator\TokenRequestExtractor
+    arguments:
+      - "@ws.security.lcobucci.jwt.parser"
+
+  ## LIBRARY SERVICES
+  ws.security.lcobucci.jwt.builder:
+    class: Lcobucci\JWT\Builder
+
+  ws.security.lcobucci.jwt.validation_data:
+    class: Lcobucci\JWT\ValidationData
+
+  ws.security.lcobucci.jwt.parser:
+    class: Lcobucci\JWT\Parser
+
+  ws.security.lcobucci.jwt.hmac_signer:
+    class: Lcobucci\JWT\Signer\Hmac\Sha256

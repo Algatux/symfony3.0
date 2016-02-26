@@ -1,9 +1,3 @@
 parameters:
 
 services:
-
-    ws.api_key.repository:
-        class: WsBundle\Repository\ApiKeyRepository
-        factory: ["@doctrine", getRepository]
-        arguments:
-            - WsBundle:ApiKey

@@ -14,9 +14,6 @@ use Lcobucci\JWT\ValidationData;
 class TokenValidator implements AuthTokenValidatorInterface
 {
 
-    /** @var Parser  */
-    private $parser;
-
     /** @var ValidationData  */
     private $validationData;
 
@@ -28,20 +25,18 @@ class TokenValidator implements AuthTokenValidatorInterface
 
     /**
      * TokenValidator constructor.
-     * @param Parser $parser
      * @param ValidationData $validationData
      * @param Signer $signer
      * @param string $secret
      * @param array $config
      */
     public function __construct(
-        Parser $parser,
         ValidationData $validationData,
         Signer $signer,
         string $secret,
-        array $config)
+        array $config
+    )
     {
-        $this->parser = $parser;
         $this->validationData = $validationData;
         $this->signer = $signer;
         $this->secret = $secret;

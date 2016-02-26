@@ -1,5 +1,5 @@
 <?php
-//declare(strict_types=1);
+declare(strict_types=1);
 namespace WsBundle\Security\Jwt;
 
 use Lcobucci\JWT\Token;
@@ -12,15 +12,21 @@ interface AuthTokenValidatorInterface
 {
 
     /**
+     * @param Token $token
+     * @return bool
+     */
+    public function validateToken(Token $token): bool;
+
+    /**
      * @param string $token
      * @return bool
      */
     public function validateRawToken(string $token): bool;
 
     /**
-     * @param Token $token
-     * @return bool
+     * @param string $token
+     * @return Token
      */
-    public function validateToken(Token $token): bool;
+    public function getTokenFromRaw(string $token): Token;
 
 }

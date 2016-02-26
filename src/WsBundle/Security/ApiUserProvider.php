@@ -5,50 +5,28 @@ namespace WsBundle\Security;
 
 use AppBundle\Entity\User;
 use AppBundle\Repository\UserRepository;
+use Lcobucci\JWT\Token;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use WsBundle\Repository\ApiKeyRepository;
 
 /**
- * Class ApiKeyUserProvider
+ * Class ApiUserProvider
  * @package AppBundle\Security
  */
-class ApiKeyUserProvider implements UserProviderInterface
+class ApiUserProvider implements UserProviderInterface
 {
-
-    /** @var ApiKeyRepository */
-    private $apiKeyRepository;
 
     /** @var UserRepository */
     private $userRepository;
 
     /**
-     * ApiKeyUserProvider constructor.
+     * ApiUserProvider constructor.
      * @param UserRepository $userRepository
-     * @param ApiKeyRepository $apiKeyRepository
      */
-    public function __construct(UserRepository $userRepository, ApiKeyRepository $apiKeyRepository)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-        $this->apiKeyRepository = $apiKeyRepository;
-    }
-
-    /**
-     * @param string $apiKey
-     * @return null|string
-     */
-    public function getUsernameForApiKey($apiKey)
-    {
-        // Look up the username based on the token in the database, via
-        // an API call, or do something entirely different
-        $apiKeyEntity = $this->apiKeyRepository->findByApiKey($apiKey);
-
-        if (null === $apiKeyEntity) {
-            return null;
-        }
-
-        return $apiKeyEntity->getUser()->getUsername();
     }
 
     /**

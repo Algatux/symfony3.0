@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace WsBundle\Security;
 
-use Lcobucci\JWT\Parser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
@@ -90,7 +89,13 @@ class ApiAuthenticator implements SimplePreAuthenticatorInterface, Authenticatio
         $data = $jwtToken->getClaim('data');
         $user = $userProvider->loadUserByUsername(base64_decode($data->uidentifier));
 
-        if (!$user->isEnabled() || $user->isExpired() || $user->isCredentialsExpired() || $user->isLocked()) {
+        if (
+            null === $user ||
+            !$user->isEnabled() ||
+            $user->isExpired() ||
+            $user->isCredentialsExpired() ||
+            $user->isLocked()
+        ) {
             throw new CustomUserMessageAuthenticationException(
                 sprintf('User is not able to operate')
             );

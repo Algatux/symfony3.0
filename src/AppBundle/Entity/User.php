@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\Index;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use WsBundle\Entity\ApiKey;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="fos_user")
+ * @ORM\Table(name="fos_user",indexes={@Index(name="search_idx", columns={"username", "email"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
 class User extends BaseUser
@@ -42,6 +41,30 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param string $username
+     * @return $this|\FOS\UserBundle\Model\UserInterface
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+        $this->setUsernameCanonical($username);
+
+        return $this;
+    }
+
+    /**
+     * @param string $email
+     * @return $this
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        $this->setEmailCanonical($email);
+
+        return $this;
     }
 
     /**

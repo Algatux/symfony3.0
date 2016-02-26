@@ -5,7 +5,6 @@ namespace WsBundle\Security;
 
 use AppBundle\Entity\User;
 use AppBundle\Repository\UserRepository;
-use Lcobucci\JWT\Token;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -35,7 +34,7 @@ class ApiUserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
-        return $this->userRepository->findByUsername($username);
+        return $this->userRepository->find($id);
     }
 
     public function refreshUser(UserInterface $user)

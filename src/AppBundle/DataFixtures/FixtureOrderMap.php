@@ -18,8 +18,7 @@ class FixtureOrderMap
 
     private static $classOrderMap = [
         LoadUserData::class => 10,
-        LoadApiKeyData::class => 20,
-        LoadUserRegistryData::class => 30,
+        LoadUserRegistryData::class => 20,
     ];
 
     public static function getClassOrder(string $className): int

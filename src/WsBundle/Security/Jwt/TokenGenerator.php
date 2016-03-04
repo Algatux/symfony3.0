@@ -6,6 +6,7 @@ use AppBundle\Entity\User;
 use Carbon\Carbon;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer;
+use Lcobucci\JWT\Token;
 use WsBundle\Security\TokenInterface;
 
 /**
@@ -44,9 +45,9 @@ class TokenGenerator implements AuthTokenFactoryInterface
 
     /**
      * @param User $user
-     * @return TokenInterface
+     * @return Token
      */
-    public function createToken(User $user)
+    public function createToken(User $user): Token
     {
         $issued = Carbon::now();
         $expire = Carbon::now()->addSeconds((int) $this->config['expire']);

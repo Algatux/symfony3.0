@@ -27,6 +27,7 @@ class WsBundleExtension extends Extension
             new FileLocator(__DIR__ . '/../Resources/config')
         );
         $loader->load('services.yml');
+        $loader->load('security.yml');
         $loader->load('repositories.yml');
     }
 

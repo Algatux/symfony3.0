@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace WsBundle\Controller;
 
 use AppBundle\Controller\BaseController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -10,9 +10,8 @@ class DefaultControllerTest extends TestCase
     {
         $client = $this->createClient();
 
-        $crawler = $client->request('GET', '/');
+        $client->request('GET', '/');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Welcome to Symfony 3.0', $crawler->filter('div.jumbotron')->text());
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
 }

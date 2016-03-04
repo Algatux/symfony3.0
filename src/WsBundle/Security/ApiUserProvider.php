@@ -1,6 +1,5 @@
 <?php
 declare(strict_types = 1);
-
 namespace WsBundle\Security;
 
 use AppBundle\Entity\User;
@@ -34,9 +33,13 @@ class ApiUserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
-        return $this->userRepository->find($id);
+        return $this->userRepository->findByUsername($username);
     }
 
+    /**
+     * @param UserInterface $user
+     * @return UserInterface|void
+     */
     public function refreshUser(UserInterface $user)
     {
         // this is used for storing authentication in the session

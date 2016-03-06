@@ -51,5 +51,17 @@ class AuthenticationController extends BaseController
 
         return new JsonResponse(['data' => $users]);
     }
+
+    /**
+     * @Route("/users/{user}", name="ws_user")
+     *
+     * @param Request $request
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function userAction(Request $request, User $user)
+    {
+        return new JsonResponse(['data' => $user]);
+    }
     
 }

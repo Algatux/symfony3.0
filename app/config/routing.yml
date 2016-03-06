@@ -12,4 +12,5 @@ fos_user:
 
 ws_user_security_check:
     path:     /ws/login_check
-    defaults: { _controller: FOSUserBundle:Security:check }
+    methods: ["POST"]
+#    defaults: { _controller: FOSUserBundle:Security:check }

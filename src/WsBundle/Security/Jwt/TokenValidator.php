@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace WsBundle\Security\Jwt;
 
-use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\ValidationData;
@@ -47,33 +46,12 @@ class TokenValidator implements AuthTokenValidatorInterface
     }
 
     /**
-     * @param string $token
-     * @return bool
-     */
-    public function validateRawToken(string $token): bool
-    {
-        /** @var Token $token */
-        $token = $this->getTokenFromRaw($token);
-
-        return $this->validateToken($token);
-    }
-
-    /**
      * @param Token $token
      * @return bool
      */
     public function validateToken(Token $token): bool
     {
         return $token->validate($this->validationData) && $token->verify($this->signer, $this->secret);
-    }
-
-    /**
-     * @param string $token
-     * @return Token
-     */
-    public function getTokenFromRaw(string $token): Token
-    {
-        return $this->parser->parse($token);
     }
 
 }

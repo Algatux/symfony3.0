@@ -62,7 +62,7 @@ class TokenGenerator implements AuthTokenFactoryInterface
             ->setExpiration($expire->getTimestamp())
             ->set('data', [
                 "uid" => $user->getId(),
-                "uidentifier" => base64_encode($user->getUsername()),
+                "uidentifier" => $user->getUsername(),
             ])
             ->sign($this->signer, $this->secret)
             ->getToken();

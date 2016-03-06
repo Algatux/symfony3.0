@@ -17,16 +17,4 @@ interface AuthTokenValidatorInterface
      */
     public function validateToken(Token $token): bool;
 
-    /**
-     * @param string $token
-     * @return bool
-     */
-    public function validateRawToken(string $token): bool;
-
-    /**
-     * @param string $token
-     * @return Token
-     */
-    public function getTokenFromRaw(string $token): Token;
-
 }

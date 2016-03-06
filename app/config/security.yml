@@ -25,13 +25,13 @@ security:
 
         ## WS API
         ws_login:
-          pattern: ^/ws/login_check$
-          provider: fos_userbundle
+          pattern: ^/ws/login$
           stateless: true
           anonymous: true
-          form_login:
+          simple_form:
             provider: fos_userbundle
-            check_path: ws_user_security_check
+            authenticator: ws.security_authentication.json_login_authenticator
+            check_path: ws_login_check
             username_parameter: username
             password_parameter: password
             success_handler:  ws.security_authentication.success_handler

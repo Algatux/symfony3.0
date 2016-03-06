@@ -6,8 +6,21 @@ services:
     arguments:
       - "@app.user.repository"
 
+  ws.security_authentication.login_authenticator:
+    class: WsBundle\Security\Authentication\LoginAuthenticator
+    arguments:
+      - "@app.user.repository"
+      - "@ws.security_jwt.generator"
+
+  ws.security_authentication.json_login_authenticator:
+    class: WsBundle\Security\Authentication\JsonLoginAuthenticator
+    arguments:
+      - "@app.user.repository"
+      - "@ws.security_jwt.generator"
+      - "@security.password_encoder"
+
   ws.security.api_authenticator:
-    class: WsBundle\Security\ApiAuthenticator
+    class: WsBundle\Security\Authentication\ApiAuthenticator
     public: false
     arguments:
       - "@ws.security_jwt.token_validator"

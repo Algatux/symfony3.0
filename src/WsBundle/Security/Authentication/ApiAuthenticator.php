@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace WsBundle\Security;
+namespace WsBundle\Security\Authentication;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
+use WsBundle\Security\ApiUserProvider;
 use WsBundle\Security\Authenticator\TokenRequestExtractor;
 use WsBundle\Security\Jwt\AuthTokenValidatorInterface;
 
@@ -87,7 +88,7 @@ class ApiAuthenticator implements SimplePreAuthenticatorInterface, Authenticatio
         $jwtToken = $token->getCredentials();
 
         $data = $jwtToken->getClaim('data');
-        $user = $userProvider->loadUserByUsername(base64_decode($data->uidentifier));
+        $user = $userProvider->loadUserByUsername($data->uidentifier);
 
         if (
             null === $user ||

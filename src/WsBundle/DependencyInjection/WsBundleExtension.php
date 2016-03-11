@@ -6,7 +6,9 @@ namespace WsBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use WsBundle\DependencyInjection\ContainerBuilder\SerializerCompilerPass;
 
 class WsBundleExtension extends Extension
 {
@@ -26,6 +28,7 @@ class WsBundleExtension extends Extension
             $container,
             new FileLocator(__DIR__ . '/../Resources/config')
         );
+
         $loader->load('services.yml');
         $loader->load('security.yml');
         $loader->load('repositories.yml');

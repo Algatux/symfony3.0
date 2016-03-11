@@ -14,8 +14,8 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
 use WsBundle\Security\ApiUserProvider;
-use WsBundle\Security\Authenticator\TokenRequestExtractor;
 use WsBundle\Security\Jwt\AuthTokenValidatorInterface;
+use WsBundle\Security\Jwt\TokenRequestExtractor;
 
 /**
  * Class ApiAuthenticator

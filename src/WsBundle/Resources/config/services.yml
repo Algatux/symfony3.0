@@ -1,3 +1,10 @@
 services:
 
+  ws.services_serializers.serializer:
+    class: WsBundle\Services\Serializers\Serializer
 
+  ws.services_serializers_strategies.ember_serializer:
+    class: WsBundle\Services\Serializers\Strategies\EmberSerializer
+    public: false
+    tags:
+      -  { name: ws.serializer.strategy, alias: ember.serializer }

@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace WsBundle\Security\Authenticator;
+namespace WsBundle\Security\Jwt;
 
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Token;

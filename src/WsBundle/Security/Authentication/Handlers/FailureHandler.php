@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace WsBundle\Security\Authentication;
+namespace WsBundle\Security\Authentication\Handlers;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

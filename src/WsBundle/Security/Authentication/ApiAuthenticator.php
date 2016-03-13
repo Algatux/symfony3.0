@@ -94,7 +94,6 @@ class ApiAuthenticator implements SimplePreAuthenticatorInterface, Authenticatio
             null === $user ||
             !$user->isEnabled() ||
             $user->isExpired() ||
-            $user->isCredentialsExpired() ||
             $user->isLocked()
         ) {
             throw new CustomUserMessageAuthenticationException(

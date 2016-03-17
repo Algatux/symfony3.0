@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 class TokenRequestExtractor
 {
 
-    const REGEX_JWT_HEADER = "/Bearer[\s]{1}([\d\w]+[\.]{1}[\d\w]+[\.]{1}[\d\w]+)/";
+    const REGEX_JWT_HEADER = "/^Bearer[\s]([A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.[A-Za-z0-9-_.+=]+)$/";
 
     /** @var Parser  */
     private $jwtParser;

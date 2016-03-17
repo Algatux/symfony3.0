@@ -27,8 +27,7 @@ class AuthenticationController extends BaseController
         $user = $this->getEntityManager()
             ->getRepository(User::class)->find(1);
 
-        return new JsonResponse($this->get('ws.services_serializers.serializer')
-            ->serializeWith('ember.serializer', $user));
+        return new JsonResponse([]);
     }
 
     /**
@@ -53,8 +52,7 @@ class AuthenticationController extends BaseController
         $users = $this->getEntityManager()
             ->getRepository(User::class)->findAll();
 
-        return new JsonResponse($this->get('ws.services_serializers.serializer')
-            ->serializeWith('ember.serializer', $users));
+        return new JsonResponse([]);
     }
 
     /**
@@ -66,8 +64,7 @@ class AuthenticationController extends BaseController
      */
     public function userAction(Request $request, User $user)
     {
-        return new JsonResponse($this->get('ws.services_serializers.serializer')
-            ->serializeWith('ember.serializer', $user));
+        return new JsonResponse([]);
     }
     
 }

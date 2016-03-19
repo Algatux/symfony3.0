@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use WsBundle\HttpComponents\Responses\JsonApiDocumentResponse;
 
 /**
  * Class AuthenticationController
@@ -52,7 +53,7 @@ class AuthenticationController extends BaseController
         $users = $this->getEntityManager()
             ->getRepository(User::class)->findAll();
 
-        return new JsonResponse([]);
+        return new JsonApiDocumentResponse($users);
     }
 
     /**
@@ -64,7 +65,7 @@ class AuthenticationController extends BaseController
      */
     public function userAction(Request $request, User $user)
     {
-        return new JsonResponse([]);
+        return new JsonApiDocumentResponse($user);
     }
     
 }

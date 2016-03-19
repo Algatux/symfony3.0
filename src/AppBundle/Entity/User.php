@@ -7,13 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
 use FOS\UserBundle\Model\User as BaseUser;
 use JsonSerializable;
+use WsBundle\Serializers\JsonApiDocumentElement;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user",indexes={@Index(name="search_idx", columns={"username", "email"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User extends BaseUser
+class User extends BaseUser implements JsonSerializable
 {
     /**
      * @ORM\Id
@@ -104,4 +105,24 @@ class User extends BaseUser
         return $this->registry->getName() . " " . $this->registry->getSurname();
     }
 
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    function jsonSerialize()
+    {
+        return new JsonApiDocumentElement(
+            $this->getId(),
+            User::class,
+            [
+                "username" => $this->getUsernameCanonical(),
+                "email" => $this->getEmailCanonical(),
+                "firstname" => $this->registry->getName(),
+                "lastname" => $this->registry->getSurname()
+            ]
+        );
+    }
 }

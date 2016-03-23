@@ -52,6 +52,16 @@ services:
     arguments:
       - "@ws.security.lcobucci.jwt.parser"
 
+  ws.security_jwt_extractors.header_extractor:
+    class: WsBundle\Security\Jwt\Extractors\HeaderExtractor
+    tags:
+      - { name: token_request_extractor.extractor, alias: header_extractor  }
+
+  ws.security_jwt_extractors.payload_extractor:
+    class: WsBundle\Security\Jwt\Extractors\PayloadExtractor
+    tags:
+      - { name: token_request_extractor.extractor, alias: payload_extractor  }
+
   ## LIBRARY SERVICES
   ws.security.lcobucci.jwt.builder:
     class: Lcobucci\JWT\Builder

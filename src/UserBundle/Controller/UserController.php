@@ -4,6 +4,7 @@ namespace UserBundle\Controller;
 
 use AppBundle\Controller\BaseController;
 use AppBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use WsBundle\HttpComponents\Responses\JsonApiDocumentResponse;
@@ -19,6 +20,7 @@ class UserController extends BaseController
 
     /**
      * @Route("/", name="ws_users_list")
+     * @Method({"GET"})
      *
      * @param Request $request
      * @return JsonApiDocumentResponse
@@ -33,6 +35,7 @@ class UserController extends BaseController
 
     /**
      * @Route("/{user}", name="ws_user")
+     * @Method({"GET"})
      *
      * @param Request $request
      * @param User $user

@@ -3,12 +3,9 @@ declare(strict_types=1);
 namespace WsBundle\Controller;
 
 use AppBundle\Controller\BaseController;
-use AppBundle\Entity\User;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use WsBundle\HttpComponents\Responses\JsonApiDocumentResponse;
 
 /**
  * Class AuthenticationController
@@ -18,54 +15,33 @@ class AuthenticationController extends BaseController
 {
 
     /**
-     * @Route("/test", name="ws_test")
-     *
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function testAction(Request $request)
-    {
-        $user = $this->getEntityManager()
-            ->getRepository(User::class)->find(1);
-
-        return new JsonResponse([]);
-    }
-
-    /**
      * @Route("/login", name="ws_login_check")
      *
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return null
      */
     public function checkAction(Request $request)
     {
-        return new JsonResponse(['lalal']);
+        /** FAKE */
+        return null;
     }
 
     /**
-     * @Route("/users", name="ws_users_list")
+     * @Route("/refresh", name="ws_token_refresh")
      *
      * @param Request $request
      * @return JsonResponse
      */
-    public function usersAction(Request $request)
+    public function refreshAction(Request $request)
     {
-        $users = $this->getEntityManager()
-            ->getRepository(User::class)->findAll();
+        $token = $this->get('ws.security_jwt.generator')->createToken($this->getUser());
 
-        return new JsonApiDocumentResponse($users);
-    }
-
-    /**
-     * @Route("/users/{user}", name="ws_user")
-     *
-     * @param Request $request
-     * @param User $user
-     * @return JsonResponse
-     */
-    public function userAction(Request $request, User $user)
-    {
-        return new JsonApiDocumentResponse($user);
+        return new JsonResponse(
+            [
+                'token' => $token->__toString()
+            ],
+            201
+        );
     }
     
 }

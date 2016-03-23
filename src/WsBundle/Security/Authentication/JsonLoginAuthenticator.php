@@ -11,6 +11,8 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\SimpleFormAuthenticatorInterface;
+use WsBundle\Exceptions\Request\InvalidLoginRequestPayload;
+use WsBundle\Models\LoginRequestPayload;
 use WsBundle\Security\Jwt\TokenGenerator;
 
 /**
@@ -46,6 +48,12 @@ class JsonLoginAuthenticator implements SimpleFormAuthenticatorInterface
         $this->encoder = $encoder;
     }
 
+    /**
+     * @param TokenInterface $token
+     * @param UserProviderInterface $userProvider
+     * @param $providerKey
+     * @return UsernamePasswordToken
+     */
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
     {
         try {
@@ -68,24 +76,53 @@ class JsonLoginAuthenticator implements SimpleFormAuthenticatorInterface
         throw new CustomUserMessageAuthenticationException('Invalid username or password');
     }
 
+    /**
+     * @param TokenInterface $token
+     * @param $providerKey
+     * @return bool
+     */
     public function supportsToken(TokenInterface $token, $providerKey)
     {
         return $token instanceof UsernamePasswordToken && $token->getProviderKey() === $providerKey;
     }
 
+    /**
+     * @param Request $request
+     * @param $username
+     * @param $password
+     * @param $providerKey
+     * @return UsernamePasswordToken
+     */
     public function createToken(Request $request, $username, $password, $providerKey)
     {
-        $payload = [];
-
-        if ($request->getContentType() === 'json') {
-            $payload = json_decode($request->getContent(), true);
+        try{
+            $payload = $this->getRequestBody($request);
+        } catch (InvalidLoginRequestPayload $e){
+            throw new CustomUserMessageAuthenticationException($e->getMessage());
         }
 
-        $credentials = [
-            'username' => isset($payload['username']) ? $payload['username'] : null,
-            'password' => isset($payload['password']) ? $payload['password'] : null,
-        ];
+        return new UsernamePasswordToken($payload->getUsername(), $payload->getPassword(), $providerKey);
+    }
 
-        return new UsernamePasswordToken($credentials['username'], $credentials['password'], $providerKey);
+    /**
+     * @param Request $request
+     * @return LoginRequestPayload
+     * @throws InvalidLoginRequestPayload
+     */
+    private function getRequestBody(Request $request)
+    {
+        if ($request->getContentType() === 'json') {
+            $payload = json_decode($request->getContent(), true);
+
+            $credentials = [
+                'username' => isset($payload['username']) ? $payload['username'] : null,
+                'password' => isset($payload['password']) ? $payload['password'] : null,
+            ];
+
+            return new LoginRequestPayload($credentials['username'], $credentials['password']);
+        }
+
+        throw new InvalidLoginRequestPayload('Login request is not in the correct format. Required Json');
+
     }
 }

@@ -10,6 +10,10 @@ app:
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
+user:
+    resource: "@UserBundle/Controller/"
+    type:     annotation
+
 ws_user_security_check:
     path:     /ws/login_check
     methods: ["POST"]

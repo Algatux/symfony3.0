@@ -39,6 +39,19 @@ class PayloadExtractorTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    public function test_can_not_handle_not_specified_token()
+    {
+        $request = $this->prophesize(Request::class);
+        $request->getContent(Argument::any())
+            ->shouldBeCalledTimes(1)
+            ->willReturn('{"toLkien":"xxx.xxx.xxx"}');
+
+        $extractor = new PayloadExtractor();
+
+        $this->assertFalse($extractor->canHandle($request->reveal()));
+
+    }
+
     public function fakeTokenProvider()
     {
         return [

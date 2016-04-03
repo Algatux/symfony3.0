@@ -8,47 +8,28 @@ use Symfony\Component\HttpFoundation\Request;
  * Class PayloadExtractor
  * @package WsBundle\Security\Jwt\Extractors
  */
-class PayloadExtractor implements TokenExtractorInterface
+class PayloadExtractor extends AbstractExtractor
 {
 
     const REGEX_JWT_PAYLOAD = "/^([A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.[A-Za-z0-9-_+=]+)$/";
 
     /**
      * @param Request $request
-     * @return bool
+     * @return string
      */
-    public function canHandle(Request $request): bool
+    function getTokenFromRequest(Request $request): string
     {
         $payload = json_decode($request->getContent(), true);
 
-        if (
-            null === $payload ||
-            ! isset($payload['token']) ||
-            ! preg_match(self::REGEX_JWT_PAYLOAD, $payload['token'], $matches) || ! isset($matches[1])
-        ) {
-            return false;
-        }
-
-        return true;
+        return isset($payload['token']) ? $payload['token'] : '';
     }
 
     /**
-     * @param Request $request
      * @return string
-     * @throws BadCredentialsException
      */
-    public function extract(Request $request): string
+    function getRegexMatcher(): string
     {
-        $payload = json_decode($request->getContent(), true);
-
-        if (
-            null === $payload ||
-            ! isset($payload['token']) ||
-            ! preg_match(self::REGEX_JWT_PAYLOAD, $payload['token'], $matches) || ! isset($matches[1])
-        ) {
-            throw new BadCredentialsException('No Auth Token found.');
-        }
-
-        return $payload['token'];
+        return self::REGEX_JWT_PAYLOAD;
     }
+
 }

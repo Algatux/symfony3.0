@@ -17,7 +17,7 @@ class PayloadExtractor extends AbstractExtractor
      * @param Request $request
      * @return string
      */
-    function getTokenFromRequest(Request $request): string
+    protected function getTokenFromRequest(Request $request): string
     {
         $payload = json_decode($request->getContent(), true);
 
@@ -27,7 +27,7 @@ class PayloadExtractor extends AbstractExtractor
     /**
      * @return string
      */
-    function getRegexMatcher(): string
+    protected function getRegexMatcher(): string
     {
         return self::REGEX_JWT_PAYLOAD;
     }

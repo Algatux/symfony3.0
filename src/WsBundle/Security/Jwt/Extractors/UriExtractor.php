@@ -17,7 +17,7 @@ class UriExtractor extends AbstractExtractor
      * @param Request $request
      * @return string
      */
-    function getTokenFromRequest(Request $request): string
+    protected function getTokenFromRequest(Request $request): string
     {
         return $request->query->get('token','');
     }
@@ -25,7 +25,7 @@ class UriExtractor extends AbstractExtractor
     /**
      * @return string
      */
-    function getRegexMatcher(): string
+    protected function getRegexMatcher(): string
     {
         return self::REGEX_JWT;
     }

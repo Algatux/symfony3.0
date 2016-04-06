@@ -16,12 +16,12 @@ abstract class AbstractExtractor implements TokenExtractorInterface
      * @param Request $request
      * @return string
      */
-    abstract function getTokenFromRequest(Request $request): string;
+    abstract protected function getTokenFromRequest(Request $request): string;
 
     /**
      * @return string
      */
-    abstract function getRegexMatcher(): string;
+    abstract protected function getRegexMatcher(): string;
 
     /**
      * @param Request $request

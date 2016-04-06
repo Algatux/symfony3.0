@@ -20,6 +20,12 @@ class JsonApiDocumentElement implements JsonSerializable
     /** @var array  */
     private $attributes;
 
+    /**
+     * JsonApiDocumentElement constructor.
+     * @param int $id
+     * @param string $type
+     * @param array $attributes
+     */
     public function __construct(int $id, string $type, array $attributes = [])
     {
         $this->id = $id;
@@ -36,7 +42,7 @@ class JsonApiDocumentElement implements JsonSerializable
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
 
         return [

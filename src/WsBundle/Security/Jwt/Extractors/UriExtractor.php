@@ -5,13 +5,13 @@ namespace WsBundle\Security\Jwt\Extractors;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class HeaderExtractor
+ * Class UriExtractor
  * @package WsBundle\Security\Jwt\Extractors
  */
-class HeaderExtractor extends AbstractExtractor
+class UriExtractor extends AbstractExtractor
 {
 
-    const REGEX_JWT_HEADER = '/^Bearer[\s]([A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.[A-Za-z0-9-_+=]+)$/';
+    const REGEX_JWT = '/^([A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.[A-Za-z0-9-_+=]+)$/';
 
     /**
      * @param Request $request
@@ -19,7 +19,7 @@ class HeaderExtractor extends AbstractExtractor
      */
     function getTokenFromRequest(Request $request): string
     {
-        return $request->headers->get('Authorization', '', true);
+        return $request->query->get('token','');
     }
 
     /**
@@ -27,7 +27,7 @@ class HeaderExtractor extends AbstractExtractor
      */
     function getRegexMatcher(): string
     {
-        return self::REGEX_JWT_HEADER;
+        return self::REGEX_JWT;
     }
 
 }

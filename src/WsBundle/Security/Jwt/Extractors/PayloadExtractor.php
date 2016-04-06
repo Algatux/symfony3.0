@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 class PayloadExtractor extends AbstractExtractor
 {
 
-    const REGEX_JWT_PAYLOAD = "/^([A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.[A-Za-z0-9-_+=]+)$/";
+    const REGEX_JWT_PAYLOAD = '/^([A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.[A-Za-z0-9-_+=]+)$/';
 
     /**
      * @param Request $request

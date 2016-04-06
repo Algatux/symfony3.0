@@ -57,6 +57,11 @@ services:
     tags:
       - { name: token_request_extractor.extractor, alias: header_extractor  }
 
+  ws.security_jwt_extractors.uri_extractor:
+    class: WsBundle\Security\Jwt\Extractors\UriExtractor
+    tags:
+      - { name: token_request_extractor.extractor, alias: uri_extractor  }
+
   ws.security_jwt_extractors.payload_extractor:
     class: WsBundle\Security\Jwt\Extractors\PayloadExtractor
     tags:

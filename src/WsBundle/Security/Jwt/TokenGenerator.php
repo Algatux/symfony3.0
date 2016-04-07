@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Token;
-use WsBundle\Security\TokenInterface;
 
 /**
  * Class TokenGenerator

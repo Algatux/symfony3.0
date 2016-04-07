@@ -22,6 +22,8 @@ use WsBundle\Security\Jwt\TokenGenerator;
 class JsonLoginAuthenticator implements SimpleFormAuthenticatorInterface
 {
 
+    const LOGIN_REQUEST_MALFORMED = 'Login request is not in the correct format or malformed.';
+
     /** @var UserRepository */
     private $userRepository;
 
@@ -109,20 +111,34 @@ class JsonLoginAuthenticator implements SimpleFormAuthenticatorInterface
      * @return LoginRequestPayload
      * @throws InvalidLoginRequestPayload
      */
-    private function getRequestBody(Request $request)
+    private function getRequestBody(Request $request): LoginRequestPayload
     {
         if ($request->getContentType() === 'json') {
             $payload = json_decode($request->getContent(), true);
 
-            $credentials = [
-                'username' => isset($payload['username']) ? $payload['username'] : null,
-                'password' => isset($payload['password']) ? $payload['password'] : null,
-            ];
-
-            return new LoginRequestPayload($credentials['username'], $credentials['password']);
+            return new LoginRequestPayload(
+                $this->extractParameterFromRawPayload($payload, 'username'),
+                $this->extractParameterFromRawPayload($payload, 'password')
+            );
         }
 
-        throw new InvalidLoginRequestPayload('Login request is not in the correct format. Required Json');
+        throw new InvalidLoginRequestPayload(self::LOGIN_REQUEST_MALFORMED . ' Required Json');
 
     }
+
+    /**
+     * @param array $payload
+     * @param string $parameter
+     * @return string
+     * @throws InvalidLoginRequestPayload
+     */
+    private function extractParameterFromRawPayload(array $payload, string $parameter): string
+    {
+        if (! isset($payload[$parameter])) {
+            throw new InvalidLoginRequestPayload(self::LOGIN_REQUEST_MALFORMED . sprintf(' You must specify %s to login', $parameter));
+        }
+
+        return $payload[$parameter];
+    }
+
 }

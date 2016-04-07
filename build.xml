@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="stingy-hamster" basedir="." default="setup_and_test">
+<project name="symfony3.0" basedir="." default="setup_and_test">
 
     <import file="phing/vendor.xml"/>
     <import file="phing/db.xml"/>

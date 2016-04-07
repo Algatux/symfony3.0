@@ -29,7 +29,7 @@ security:
           stateless: true
           anonymous: true
           simple_form:
-            provider: fos_userbundle
+            provider: api_user_provider
             authenticator: ws.security_authentication.json_login_authenticator
             check_path: ws_login_check
             username_parameter: username

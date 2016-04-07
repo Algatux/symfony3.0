@@ -19,10 +19,9 @@ class AuthenticationController extends BaseController
      * @Route("/login", name="ws_login_check")
      * @Method({"POST"})
      *
-     * @param Request $request
      * @return null
      */
-    public function checkAction(Request $request)
+    public function checkAction()
     {
         /** FAKE */
         return null;
@@ -32,10 +31,9 @@ class AuthenticationController extends BaseController
      * @Route("/refresh", name="ws_token_refresh")
      * @Method({"POST"})
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function refreshAction(Request $request)
+    public function refreshAction()
     {
         $token = $this->get('ws.security_jwt.generator')->createToken($this->getUser());
 

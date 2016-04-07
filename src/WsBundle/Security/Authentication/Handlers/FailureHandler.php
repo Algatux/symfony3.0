@@ -4,7 +4,6 @@ namespace WsBundle\Security\Authentication\Handlers;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 
@@ -23,7 +22,7 @@ class FailureHandler implements AuthenticationFailureHandlerInterface
      * @param Request $request
      * @param AuthenticationException $exception
      *
-     * @return JsonResponse|Response The response to return, never null
+     * @return JsonResponse
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): JsonResponse
     {

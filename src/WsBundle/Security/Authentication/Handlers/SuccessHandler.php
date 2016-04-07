@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
-use WsBundle\Security\Authentication\Response;
 use WsBundle\Security\Jwt\TokenGenerator;
 
 /**
@@ -36,7 +35,7 @@ class SuccessHandler implements AuthenticationSuccessHandlerInterface
      * @param Request $request
      * @param TokenInterface $token
      *
-     * @return JsonResponse|Response never null
+     * @return JsonResponse
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): JsonResponse
     {
